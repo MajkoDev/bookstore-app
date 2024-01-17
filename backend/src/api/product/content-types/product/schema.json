@@ -44,6 +44,29 @@
       "relation": "manyToOne",
       "target": "api::publisher.publisher",
       "inversedBy": "products"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "availability": {
+      "type": "enumeration",
+      "enum": [
+        "In Stock",
+        "Out of Stock",
+        "Pre-order"
+      ]
+    },
+    "Formats": {
+      "type": "enumeration",
+      "enum": [
+        "Hardcover",
+        "Paperback",
+        "eBook",
+        "Audiobook"
+      ]
     }
   }
 }

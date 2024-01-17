@@ -786,6 +786,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'manyToMany',
       'api::product.product'
     >;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -829,6 +830,14 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::product.product',
       'manyToOne',
       'api::publisher.publisher'
+    >;
+    price: Attribute.Decimal;
+    subtitle: Attribute.String;
+    availability: Attribute.Enumeration<
+      ['In Stock', 'Out of Stock', 'Pre-order']
+    >;
+    Formats: Attribute.Enumeration<
+      ['Hardcover', 'Paperback', 'eBook', 'Audiobook']
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
