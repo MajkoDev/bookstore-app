@@ -8,7 +8,6 @@ import {
 } from "./ui/accordion";
 import { Checkbox } from "./ui/checkbox";
 
-
 const filters = [
   {
     id: "category",
@@ -34,33 +33,34 @@ const filters = [
   },
 ];
 
-async function getCategories() {
-  const res = await fetch("http://127.0.0.1:1337/api/categories", {
-    next: { revalidate: 0 },
-  });
-  return res.json();
-}
-
-async function getPublishers() {
-  const res = await fetch("http://localhost:1337/api/publishers?fields[0]=title", {
-    next: { revalidate: 0 },
-  });
-  return res.json();
-}
-
-
-
 export default async function ProductFilters() {
-  const categoriesData = await getCategories();
-  const publishers = await getPublishers();
-
-
   return (
     <form className="sticky top-20">
       <h3 className="sr-only">Categories</h3>
-    
-    
-
+      {filters.map((section, i) => (
+        <Accordion key={i} type="single" collapsible>
+          <AccordionItem value={`item-${i}`}>
+            <AccordionTrigger>
+              <span>{section.name}</span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4">
+                {section.options.map((option, optionIdx) => (
+                  <div
+                    key={option.value}
+                    className="flex items-center space-x-2"
+                  >
+                    <Checkbox />
+                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                      {option.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      ))}
     </form>
   );
 }
