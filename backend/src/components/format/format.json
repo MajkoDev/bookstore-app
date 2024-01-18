@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_format_formats",
+  "info": {
+    "displayName": "Format",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    }
+  }
+}
