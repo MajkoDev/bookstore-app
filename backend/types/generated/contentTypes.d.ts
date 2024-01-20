@@ -835,10 +835,13 @@ export interface ApiProductProduct extends Schema.CollectionType {
     subtitle: Attribute.String;
     availability: Attribute.Enumeration<
       ['In Stock', 'Out of Stock', 'Pre-order']
-    >;
+    > &
+      Attribute.DefaultTo<'In Stock'>;
     Formats: Attribute.Enumeration<
       ['Hardcover', 'Paperback', 'eBook', 'Audiobook']
-    >;
+    > &
+      Attribute.DefaultTo<'Paperback'>;
+    slug: Attribute.UID<'api::product.product', 'title'> & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

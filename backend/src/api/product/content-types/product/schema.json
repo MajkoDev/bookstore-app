@@ -57,7 +57,8 @@
         "In Stock",
         "Out of Stock",
         "Pre-order"
-      ]
+      ],
+      "default": "In Stock"
     },
     "Formats": {
       "type": "enumeration",
@@ -66,7 +67,13 @@
         "Paperback",
         "eBook",
         "Audiobook"
-      ]
+      ],
+      "default": "Paperback"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     }
   }
 }
