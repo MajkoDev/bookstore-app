@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -15,7 +13,7 @@ const filters = [
     options: [
       { value: "fiction", label: "Fiction" },
       { value: "poetry", label: "Poetry" },
-      { value: "esseys", label: "Esseys" },
+      { value: "essays", label: "Essays" },
     ],
   },
   {

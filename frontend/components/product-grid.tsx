@@ -1,19 +1,17 @@
-"use client";
-
-import { shimmer, toBase64 } from "@/lib/image";
-import { XCircle } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { XCircle } from "lucide-react";
+import { shimmer, toBase64 } from "@/lib/image";
 
-export default function ProductGrid() {
-  const products = [
-    {
-      _id: 1,
-      slug: "slug",
-      name: "The Broken Road",
-      author: "Patrick Leigh Fermor",
-    },
-  ];
+async function getProducts() {
+  const res = await fetch("http://127.0.0.1:1337/api/products?populate=*", {
+    next: { revalidate: 0 },
+  });
+  return res.json();
+}
+
+export default async function ProductGrid({products}: any) {
+//  const products = await getProducts();
 
   if (products.length === 0) {
     return (
@@ -30,10 +28,10 @@ export default function ProductGrid() {
 
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-3 lg:gap-x-8">
-      {products.map((product) => (
+      {products?.data?.map((product: any) => (
         <Link
-          key={product._id}
-          href={`/products/${product.slug}`}
+          key={product.id}
+          href={`/products/${product.attributes.slug}`}
           className="group text-sm"
         >
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden hover:text-slate-800 dark:hover:text-slate-300">
@@ -43,15 +41,20 @@ export default function ProductGrid() {
                 blurDataURL={`data:image/svg+xml;base64,${toBase64(
                   shimmer(225, 280)
                 )}`}
-                src="/second-image.webp"
-                alt={product.name}
+                src={
+                  "http://127.0.0.1:1337" +
+                  product.attributes.image.data.attributes.url
+                }
+                alt={product.attributes.title}
                 width={255}
                 height={280}
                 className="h-full w-full object-cover hover:scale-105 duration-300"
               />
             </div>
-            <h3 className="pt-3 text-[18px] font-semibold ">{product.name}</h3>
-            <p className="mt-1 font-base">{product.author}</p>
+            <h3 className="pt-3 text-[18px] font-semibold ">
+              {product.attributes.title}
+            </h3>
+            <p className="mt-1 font-base">{product.attributes.author}</p>
           </div>
         </Link>
       ))}
