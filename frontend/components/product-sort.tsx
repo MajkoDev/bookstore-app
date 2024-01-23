@@ -1,3 +1,7 @@
+"use client";
+
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+
 import {
   Select,
   SelectContent,
@@ -17,15 +21,27 @@ import { Filter } from "lucide-react";
 import ProductFilters from "./product-filters";
 
 const sortOptions = [
-  { name: "Newest", value: "?sort[0]=desc" },
-  { name: "Aphabetically, A-Z", value: "?sort[0]=title:asc" },
-  { name: "Aphabetically, Z-A", value: "?sort[0]=title:desc" },
+  { name: "Newest", value: "sort[0]=publishedAt:desc" },
+  { name: "Aphabetically, A-Z", value: "sort[0]=title:asc" },
+  { name: "Aphabetically, Z-A", value: "sort[0]=title:desc" },
 ];
 
 export default function ProductSort() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const { replace } = useRouter();
+
+  function handleSubmit(value: any) {
+    router.replace(`?${value}`);
+    console.log(`this is ${value}`)
+  }
+
+ 
+  
   return (
     <div className="flex items-center">
-      <Select>
+      <Select onValueChange={(value) => handleSubmit(value)}>
         <SelectTrigger className="sm:w-[180px]">
           <SelectValue placeholder="Sort By" />
         </SelectTrigger>
