@@ -3,16 +3,7 @@ import Image from "next/image";
 import { XCircle } from "lucide-react";
 import { shimmer, toBase64 } from "@/lib/image";
 
-async function getProducts() {
-  const res = await fetch("http://127.0.0.1:1337/api/products?populate=*", {
-    next: { revalidate: 0 },
-  });
-  return res.json();
-}
-
-export default async function ProductGrid({products}: any) {
-//  const products = await getProducts();
-
+export default async function ProductGrid({ products }: any) {
   if (products.length === 0) {
     return (
       <div className="mx-auto grid h-40 w-full place-items-center rounded-md border-2 border-dashed bg-gray-50 py-10 text-center dark:bg-gray-900">
