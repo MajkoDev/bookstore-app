@@ -14,17 +14,17 @@ interface Props {
 
 export default async function Page() {
   const populate = `?populate=categories,publisher,image`;
-  const pagination = `&pagination[start]=0&pagination[limit]=18`;
+  const pagination = `&pagination[start]=0&pagination[limit]=92`;
 
   const sort = `&sort[0]=title:asc`;
 
-  let category = 1;
-  const filterCategory = `&filters[categories][id][$eq]=${category}`;
-  let publisher = 1;
-  const filterPublisher = `&filters[publisher][id][$eq]=${publisher}`;
+  let category = 3
+  const filterCategory = category ? `&filters[categories][id][$eq]=${category}` : ""
+  let publisher = ''
+  const filterPublisher = publisher ? `&filters[publisher][id][$eq]=${publisher}`: ""
   const filter = `${filterCategory}${filterPublisher}`;
 
-  let titleName = "Near";
+  let titleName = "";
   const search = titleName ? `&filters[title][$contains][0]=${titleName}` : "";
 
   async function getProducts() {

@@ -20,6 +20,9 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "publisher"
+    },
+    "value": {
+      "type": "string"
     }
   }
 }

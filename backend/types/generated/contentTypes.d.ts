@@ -780,7 +780,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    categoryTitle: Attribute.String;
     products: Attribute.Relation<
       'api::category.category',
       'manyToMany',
@@ -878,6 +878,7 @@ export interface ApiPublisherPublisher extends Schema.CollectionType {
       'oneToMany',
       'api::product.product'
     >;
+    value: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
