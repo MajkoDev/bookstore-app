@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import MainNav from "./main-nav";
 import ThemeToggle from "./theme-toggle";
 
+
 export default function SiteHeader() {
   const router = useRouter();
   const searchParams = useSearchParams();
