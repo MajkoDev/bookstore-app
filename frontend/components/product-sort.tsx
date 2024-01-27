@@ -1,5 +1,3 @@
-"use client";
-
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import {
@@ -33,12 +31,15 @@ export default function ProductSort() {
   const { replace } = useRouter();
 
   function handleSubmit(value: any) {
-    router.replace(`?${value}`);
-    console.log(`this is ${value}`)
+    router.replace(`${value}`);
+
+    // router.replace(`?${value}`);
+    // console.log(`this is ${value}`)
+    // console.log(value)
+    // console.log(pathName)
+    // console.log(searchParams)
   }
 
- 
-  
   return (
     <div className="flex items-center">
       <Select onValueChange={(value) => handleSubmit(value)}>
