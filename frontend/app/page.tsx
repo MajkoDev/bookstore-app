@@ -8,23 +8,26 @@ import ProductSort from "@/components/product-sort";
 
 interface Props {
   searchParams: {
-    title?: string;
+    search?: string;
   };
 }
 
-export default async function Page() {
+export default async function Page({ searchParams }: Props) {
+//  console.log(searchParams.search)
+
   const populate = `?populate=categories,publisher,image`;
   const pagination = `&pagination[start]=0&pagination[limit]=92`;
 
   const sort = `&sort[0]=title:asc`;
 
-  let category = 3
+
+  let category = ""
   const filterCategory = category ? `&filters[categories][id][$eq]=${category}` : ""
   let publisher = ''
   const filterPublisher = publisher ? `&filters[publisher][id][$eq]=${publisher}`: ""
   const filter = `${filterCategory}${filterPublisher}`;
 
-  let titleName = "";
+  let titleName = searchParams.search
   const search = titleName ? `&filters[title][$contains][0]=${titleName}` : "";
 
   async function getProducts() {
