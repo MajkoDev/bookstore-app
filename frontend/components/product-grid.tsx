@@ -27,21 +27,22 @@ export default async function ProductGrid({ products }: any) {
         >
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden hover:text-slate-800 dark:hover:text-slate-300">
             <div className="overflow-hidden">
-              <Image
-                placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                  shimmer(225, 280)
-                )}`}
-                src={
-                  "http://127.0.0.1:1337" +
-                  product.attributes.image.data.attributes.url
-                }
-                alt={product.attributes.title}
-                width={255}
-                height={280}
-                className="h-full w-full object-cover hover:scale-105 duration-300"
-              />
+                <Image
+                  placeholder="blur"
+                  blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                    shimmer(225, 280)
+                  )}`}
+                  src={
+                    "http://127.0.0.1:1337" +
+                    product.attributes.image.data.attributes.url
+                  }
+                  alt={product.attributes.title}
+                  width={255}
+                  height={280}
+                  className="h-full w-full object-cover hover:scale-105 duration-300"
+                />
             </div>
+
             <h3 className="pt-3 text-[18px] font-semibold ">
               {product.attributes.title}
             </h3>
