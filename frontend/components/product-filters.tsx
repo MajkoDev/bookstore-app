@@ -36,7 +36,7 @@ const filters = [
   },
 ];
 
-export default async function ProductFilters() {
+export default function ProductFilters() {
   const searchParams = useSearchParams();
   const router = useRouter();
 

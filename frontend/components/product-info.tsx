@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+import { formatCurrencyString, useShoppingCart } from "use-shopping-cart";
 
 import {
   BlocksRenderer,
@@ -15,9 +16,31 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "./ui/accordion";
+import { useToast } from "./ui/use-toast";
 
 export default function ProductInfo({ product }: any) {
   const [quantity, setQuantity] = useState(1);
+  const { addItem, cartDetails, incrementItem } = useShoppingCart();
+  const { toast } = useToast();
+
+  const isInCart = !!cartDetails?.[product.slug];
+
+  console.log(cartDetails);
+
+  function addToCart() {
+    const item = {
+      ...product,
+      name: product.title,
+      price: product.price,
+      id: product.slug,
+      currency: "USD",
+    };
+    isInCart ? incrementItem(item._id) : addItem(item);
+    toast({
+      title: `DONE`,
+      description: "Product added to cart",
+    });
+  }
 
   return (
     <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
@@ -82,6 +105,8 @@ export default function ProductInfo({ product }: any) {
           <div className="flex justify-center">
             <Button
               type="button"
+              onClick={addToCart}
+
               className="w-2/3 bg-blue-600 py-6 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Add to cart
