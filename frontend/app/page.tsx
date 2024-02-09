@@ -54,7 +54,7 @@ export default async function Page({ searchParams }: Props) {
         <main className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between border-b border-gray-200 pb-4 pt-24 dark:border-gray-800">
             <h1 className="text-xl font-bold tracking-tight sm:text-2xl">
-              {products.data.length} book{products.data.length === 1 ? "" : "s"}
+              {products.data?.length} book{products.data?.length === 1 ? "" : "s"}
             </h1>
             <ProductSort />
           </div>
@@ -63,7 +63,7 @@ export default async function Page({ searchParams }: Props) {
             <div
               className={cn(
                 "grid grid-cols-1 gap-x-8 gap-y-10",
-                products.data.length > 0
+                products.data?.length > 0
                   ? "lg:grid-cols-4"
                   : "lg:grid-cols-[1fr_3fr]"
               )}

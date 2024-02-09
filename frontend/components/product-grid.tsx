@@ -22,7 +22,7 @@ export default async function ProductGrid({ products }: any) {
       {products?.data?.map((product: any) => (
         <Link
           key={product.id}
-          href={`/products/${product.attributes.slug}`}
+          href={`/products/${product?.attributes.slug}`}
           className="group text-sm"
         >
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden hover:text-slate-800 dark:hover:text-slate-300">
