@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-// Layour
+// Layout
 import RootLayout from "./components/site-layout";
 
 // Pages
@@ -29,7 +29,7 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
 export default App;
