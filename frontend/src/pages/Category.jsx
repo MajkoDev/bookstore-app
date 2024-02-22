@@ -8,7 +8,7 @@ const CategoryPage = () => {
 
  
   const { data } = useFetch(
-    `/api/products?populate=*?[filters][categories][slug]=${slug}`
+    `/api/products?populate=*&[filters][categories][slug]=${slug}`
   );
 
   return (

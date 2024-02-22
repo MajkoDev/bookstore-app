@@ -8,15 +8,12 @@ import { Input } from "@/components/ui/input";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 const ProductPage = () => {
-  const {id} = useParams();
-
-  console.log(id)
-  
+  const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
-  const { data } = useFetch(`/api/products?populate=*&filters[slug][$eq]=${id}`);
-
-  console.log(data)
+  const { data } = useFetch(
+    `/api/products?populate=*&filters[slug][$eq]=${id}`
+  );
 
   function decrement() {
     setQuantity((prevState) => {
@@ -37,7 +34,7 @@ const ProductPage = () => {
       <div className="mx-auto max-w-2xl lg:max-w-none">
         <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 grid-rows-subgrid">
           <div className="aspect-h-1 aspect-w-1 w-full">
-          <img
+            <img
               src={
                 "http://127.0.0.1:1337" + product.image?.data[0].attributes.url
               }
