@@ -20,7 +20,7 @@ export default function ProductGrid({ products }) {
       {products?.data?.map((item) => (
         <Link
           key={item.id}
-          to={`/product/${item.id}`}
+          to={`/product/${item.attributes.slug}`}
           className="group text-sm"
         >
           <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-sm">

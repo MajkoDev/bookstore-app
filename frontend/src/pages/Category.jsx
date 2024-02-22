@@ -6,13 +6,9 @@ import { useParams } from "react-router-dom";
 const CategoryPage = () => {
   const { slug } = useParams();
 
-  const [revealed, setRevealed] = useState(false);
-  const revealText = () => {
-    setRevealed(true);
-  };
-
+ 
   const { data } = useFetch(
-    `/api/products?populate=*&[filters][categories][slug]=${slug}`
+    `/api/products?populate=*?[filters][categories][slug]=${slug}`
   );
 
   return (
