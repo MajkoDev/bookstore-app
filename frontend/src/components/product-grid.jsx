@@ -16,27 +16,30 @@ export default function ProductGrid({ products }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-3 lg:gap-x-8">
+    <div className="grid grid-cols-1 gap-x-2 gap-y-10 sm:grid-cols-3 lg:col-span-3 lg:gap-x-4">
       {products?.data?.map((item) => (
         <Link
           key={item.id}
           to={`/product/${item.id}`}
           className="group text-sm"
         >
-          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden hover:text-slate-800 dark:hover:text-slate-300">
+          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-sm">
             <img
               src={
                 "http://127.0.0.1:1337" +
                 item?.attributes?.image?.data[0].attributes.url
               }
               alt="Image of Book"
-              className="h-full w-full object-cover hover:scale-105 duration-300"
+              className="w-full h-80 object-cover object-center hover:scale-105 duration-300"
             />
-
-            <h3 className="pt-3 text-[18px] font-semibold ">
-              {item.attributes.title}
-            </h3>
-            <p className="mt-1 font-base">Author of Book</p>
+            <div className="pl-1">
+              <h3 className="pt-3 text-[18px] font-semibold ">
+                {item.attributes.title}
+              </h3>
+              <p className="mt-1 font-base text-slate-600">
+                {item.attributes.author}
+              </p>
+            </div>
           </div>
         </Link>
       ))}
