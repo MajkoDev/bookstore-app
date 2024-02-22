@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Github, Instagram, Twitter } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import Separator from "./separator";
 
 const data = [
   {
@@ -62,16 +63,7 @@ export default function Footer() {
   );
 }
 
-function Separator({ className }) {
-  return (
-    <hr
-      className={cn(
-        "h-px my-4 bg-neutral-200 dark:bg-neutral-800 border-0",
-        className
-      )}
-    />
-  );
-}
+
 
 function Links() {
   return (

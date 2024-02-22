@@ -9,6 +9,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 const ProductPage = () => {
   const { id } = useParams();
+  
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
   const { data } = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
@@ -30,7 +31,7 @@ const ProductPage = () => {
   return (
     <main className="mx-auto max-w-5xl sm:px-6 sm:pt-16 lg:px-8">
       <div className="mx-auto max-w-2xl lg:max-w-none">
-        <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12 grid-rows-subgrid">
+        <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 grid-rows-subgrid">
           <div className="aspect-h-1 aspect-w-1 w-full">
             <img
               src={

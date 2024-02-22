@@ -30,7 +30,7 @@ export default function ProductGrid({ products }) {
                 item?.attributes?.image?.data[0].attributes.url
               }
               alt="Image of Book"
-              className="w-full h-80 object-cover object-center hover:scale-105 duration-300"
+              className="w-full h-96 object-cover object-center hover:scale-105 duration-300"
             />
             <div className="pl-1">
               <h3 className="pt-3 text-[18px] font-semibold ">

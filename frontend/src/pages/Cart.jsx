@@ -55,6 +55,8 @@ function CartPage() {
         </p>
       </div>
 
+      
+
       {!!cartItems.length && (
         <div>
           <CartItems />

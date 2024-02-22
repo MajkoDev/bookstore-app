@@ -79,13 +79,13 @@ export function NavMenu() {
                   </NavLink>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/category/1" title="Fiction">
+              <ListItem href="/category/fiction" title="Fiction">
               Dive into worlds of imagination and creativity with our fiction collection. 
               </ListItem>
-              <ListItem href="/category/2" title="Poetry">
+              <ListItem href="/category/poetry" title="Poetry">
                 Let your soul be stirred and your heart moved by the power of poetry. 
               </ListItem>
-              <ListItem href="/category/3" title="Essays">
+              <ListItem href="/category/essays" title="Essays">
               Expand your mind and enrich your understanding with our thought-provoking essays.
               </ListItem>
             </ul>
