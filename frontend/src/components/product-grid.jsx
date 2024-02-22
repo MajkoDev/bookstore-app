@@ -27,7 +27,7 @@ export default function ProductGrid({ products }) {
             <img
               src={
                 "http://127.0.0.1:1337" +
-                item.attributes.image.data[0].attributes.url
+                item?.attributes?.image?.data[0].attributes.url
               }
               alt="Image of Book"
               className="h-full w-full object-cover hover:scale-105 duration-300"

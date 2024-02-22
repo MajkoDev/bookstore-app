@@ -21,7 +21,10 @@ const HomePage = () => {
   return (
     <div>
       <h1 className="text-center font-semibold text-3xl">Home Page</h1>
-      <ProductGrid products={products} />
+     
+     {/* 
+    */}
+      <ProductGrid products={products} /> 
     </div>
   );
 };

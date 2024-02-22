@@ -7,13 +7,13 @@ import CartItems from "@/components/cart-items";
 function CartPage() {
   const { cartItems, cartSubTotal } = useContext(Context);
 
-  const stripePayment = loadStripe(
-    "pk_test_51OeFR1LAhjZPIORQt2I4UjheoN7do2BWp2qtlBpltfU1pjQdkGMftxJRwkSTbnWJueCSQimdCFRkGXTICi6VQxkw00BpljA8c5  "
+  const stripePromise = loadStripe(
+    "pk_test_51Ok9HJF1IXYkC9JQzInVqi4B5eIgwIP2tqyeF6rBPLjzIqlQ1yJJ7t8DCMpLwJrNqI0xAl3SpLVBWZ331kKJcxdx00HNeLQlcO"
   );
 
   const handlePayment = async () => {
     try {
-      const stripe = await stripePromise;
+      const stripe = await stripePromise
       const res = await makePaymentRequest.post("/api/orders", {
         products: cartItems,
       });
