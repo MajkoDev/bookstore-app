@@ -45,6 +45,12 @@
       "type": "uid",
       "targetField": "title",
       "required": true
+    },
+    "publisher": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::publisher.publisher",
+      "inversedBy": "products"
     }
   }
 }
