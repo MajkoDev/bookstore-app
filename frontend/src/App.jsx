@@ -6,6 +6,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+// Apollo Client
+import { 
+  ApolloClient, 
+  ApolloProvider, 
+  InMemoryCache 
+} from "@apollo/client";
+
 // Layout
 import RootLayout from "./components/site-layout";
 
@@ -16,6 +23,11 @@ import ProductsPage from "./pages/Products";
 import ProductPage from "./pages/Product";
 import SuccessPage from "./pages/Success";
 import CartPage from "./pages/Cart";
+
+const client = new ApolloClient({
+  uri: `http://localhost:1337/graphql`,
+  cache: new InMemoryCache(),
+});
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +44,11 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
+  );
 }
 
 export default App;
