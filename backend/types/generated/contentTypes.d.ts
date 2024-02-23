@@ -877,6 +877,11 @@ export interface ApiProductProduct extends Schema.CollectionType {
     price: Attribute.Decimal;
     image: Attribute.Media;
     slug: Attribute.UID<'api::product.product', 'title'> & Attribute.Required;
+    publisher: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::publisher.publisher'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -888,6 +893,43 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPublisherPublisher extends Schema.CollectionType {
+  collectionName: 'publishers';
+  info: {
+    singularName: 'publisher';
+    pluralName: 'publishers';
+    displayName: 'Publisher';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    slug: Attribute.UID<'api::publisher.publisher', 'name'>;
+    products: Attribute.Relation<
+      'api::publisher.publisher',
+      'oneToMany',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::publisher.publisher',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::publisher.publisher',
       'oneToOne',
       'admin::user'
     > &
@@ -916,6 +958,7 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
+      'api::publisher.publisher': ApiPublisherPublisher;
     }
   }
 }
