@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import useFetchv2 from "@/hooks/useFetchv2";
 
 const filters = [
   {
@@ -35,42 +36,34 @@ const filters = [
 
 export default function ProductsPage() {
   const { products, setProducts } = useContext(Context);
-
-  const populate = `?populate=categories,publisher,image`;
-  const pagination = `&pagination[start]=0&pagination[limit]=90`;
-
-  const [sort, setSort] = useState("");
-
-  //? SORTING
-
-  //? FILTER
-  let category = "";
-  const filterCategory = category
-    ? `&filters[categories][id][$eq]=${category}`
-    : "";
-  let publisher = "";
-  const filterPublisher = publisher
-    ? `&filters[publisher][id][$eq]=${publisher}`
-    : "";
-  const filter = `${filterCategory}${filterPublisher}`;
-
-  //? SEARCH
-  let titleName = "";
-  const search = titleName ? `&filters[title][$contains][0]=${titleName}` : "";
+  const { categories, setCategories } = useContext(Context)
 
   const getProducts = () => {
-    fetchDataFromApi(
-      `/api/products${populate}${pagination}${sort}${filter}${search}`
-    ).then((res) => {
+    fetchDataFromApi(`/api/products?populate=*`).then((res) => {
       setProducts(res);
     });
   };
 
+  const getCategories = () => {
+    fetchDataFromApi(`/api/categories?populate=*`).then((res) => {
+      setCategories(res);
+    });
+  };
+  console.log(categories)
+
   useEffect(() => {
     getProducts();
+    getCategories()
   }, []);
 
-  console.log(products);
+  const { data, loading, error } = useFetchv2(
+    `/categories?[filters][categories][id][$eq]=${catId}`
+  );
+
+  console.log(data)
+
+
+
 
   return (
     <div className="min-h-[65vh]">
@@ -79,8 +72,8 @@ export default function ProductsPage() {
       </div>
 
       <div className="flex flex-row w-full gap-4 justify-center items-center">
-        <Button onClick={() => console.log(`&sort[0]=title:asc`)}>Asc</Button>
-        <Button onClick={() => console.log(`&sort[0]=title:desc`)}>Desc</Button>
+        <Button onClick={() => setCategoryId("category-id-1")}>Asc</Button>
+        <Button onClick={() => setCategoryId("category-id-2")}>Desc</Button>
       </div>
 
       <form className="">
@@ -147,7 +140,7 @@ export default function ProductsPage() {
                 </p>
 
                 <p className="mt-1 font-base text-slate-600">
-                  {item.attributes.categories.data[0].attributes.title}
+                  {item.attributes.categories?.data[0].attributes.title}
                 </p>
                 <p className="mt-1 font-base text-slate-600">
                   {item.attributes.author}
