@@ -54,7 +54,7 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavLink href="/products">
+          <NavLink to="/products">
             <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-2 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
               <div className="font-normal text-foreground/70">Products</div>
             </NavigationMenuLink>
@@ -70,7 +70,7 @@ export function NavMenu() {
                 <NavigationMenuLink asChild>
                   <NavLink
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    to="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       The Bookish Retreat
