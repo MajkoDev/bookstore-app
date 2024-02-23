@@ -11,18 +11,21 @@ import RootLayout from "./components/site-layout";
 
 // Pages
 import HomePage from "./pages/Home";
-import CartPage from "./pages/Cart";
 import CategoryPage from "./pages/Category";
+import ProductsPage from "./pages/Products";
 import ProductPage from "./pages/Product";
 import SuccessPage from "./pages/Success";
+import CartPage from "./pages/Cart";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />
-      <Route path="/cart" element={<CartPage />} />
+      <Route path="/products" element={<ProductsPage />} />
+      <Route path="/product/:slug" element={<ProductPage />} />
       <Route path="/category/:slug" element={<CategoryPage />} />
-      <Route path="/product/:id" element={<ProductPage />} />
+
+      <Route path="/cart" element={<CartPage />} />
       <Route path="/success" element={<SuccessPage />} />
     </Route>
   )

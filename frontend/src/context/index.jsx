@@ -1,6 +1,9 @@
+
+import useLocalStorage from "@/hooks/useLocalStora";
 import { createContext, useEffect, useState } from "react";
 
 export const Context = createContext();
+
 
 export default function AppContext({ children }) {
   // Data from Strapi
@@ -8,9 +11,9 @@ export default function AppContext({ children }) {
   const [categories, setCategories] = useState();
 
   // Shopping Cart
-  const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
-  const [cartSubTotal, setCartSubTotal] = useState(0);
+  const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
+  const [cartCount, setCartCount] = useLocalStorage(0);
+  const [cartSubTotal, setCartSubTotal] = useLocalStorage(0);
 
   // Updating 'cartCount' and 'cartSubTotal' if any change in 'cartItems'
   useEffect(() => {

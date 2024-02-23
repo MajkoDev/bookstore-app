@@ -3,14 +3,11 @@ import { Context } from "@/context";
 import { makePaymentRequest } from "@/lib/api";
 import { loadStripe } from "@stripe/stripe-js";
 import CartItems from "@/components/cart-items";
-import { Card, CardContent } from "@/components/ui/card";
+import { CartItemsEmpty } from "@/components/cart-items-empty";
+import CartSummary from "@/components/cart-summary";
 
 function CartPage() {
-  const { cartItems, cartSubTotal } = useContext(Context);
-
-  function isVariableValid(variable) {
-    return variable !== null && variable !== undefined;
-  }
+  const { cartItems, cartSubTotal, handleCartProductQuantity } = useContext(Context);
 
   const stripePromise = loadStripe(
     "pk_test_51Ok9HJF1IXYkC9JQzInVqi4B5eIgwIP2tqyeF6rBPLjzIqlQ1yJJ7t8DCMpLwJrNqI0xAl3SpLVBWZ331kKJcxdx00HNeLQlcO"
@@ -31,42 +28,27 @@ function CartPage() {
     }
   };
 
-  if (isVariableValid(cartItems.length) && cartItems.length?.length === 0) {
-    return (
-      <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="md:col-span-2">
-          <Card>
-            <CardContent className="p-4">
-              <p>Your Cart is empty...</p>
-            </CardContent>
-          </Card>
-        </div>
-        <Receipt />
-      </div>
-    );
-  }
-
   return (
     <>
-      <div className="my-4">
-        <h2 className="text-3xl font-bold tracking-tight">Shopping Cart</h2>
-        <p className="text-sm text-muted-foreground">
-          Below is a list of products you have in your cart.
-        </p>
+      <div>
+        <main className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Shopping Cart
+          </h1>
+
+          <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+            <section aria-labelledby="cart-heading" className="lg:col-span-7">
+              <h2 id="cart-heading" className="sr-only">
+                Items in your shopping cart
+              </h2>
+              {!cartItems.length && <CartItemsEmpty />}
+
+              {!!cartItems.length && <CartItems handleCartProductQuantity={handleCartProductQuantity} />}
+            </section>
+            <CartSummary handlePayment={handlePayment} />
+          </form>
+        </main>
       </div>
-
-      
-
-      {!!cartItems.length && (
-        <div>
-          <CartItems />
-          <span className="text">Subtotal:</span>
-          <span className="text total">&#8377;{cartSubTotal}</span>
-          <button className="checkout-cta" onClick={handlePayment}>
-            Checkout
-          </button>
-        </div>
-      )}
     </>
   );
 }

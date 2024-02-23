@@ -38,9 +38,11 @@ export default function Header() {
 
 export function MainNav() {
   return (
-    <div className="hidden md:flex gap-4">
+    <div className="flex gap-4">
       <NavLink href="/" className="flex items-center">
-        <span className="hidden font-medium sm:inline-block">The Bookish Retreat</span>
+        <span className="hidden font-medium sm:inline-block">
+          The Bookish Retreat
+        </span>
       </NavLink>
       <NavMenu />
     </div>
@@ -52,7 +54,7 @@ export function NavMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavLink href="/products" legacyBehavior passHref>
+          <NavLink href="/products">
             <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-2 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
               <div className="font-normal text-foreground/70">Products</div>
             </NavigationMenuLink>
@@ -71,22 +73,26 @@ export function NavMenu() {
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
-                    The Bookish Retreat
+                      The Bookish Retreat
                     </div>
                     <p className="text-sm leading-tight text-muted-foreground">
-                    Step into our realm of boundless imagination and let the magic of literature awaken your spirit.
+                      Step into our realm of boundless imagination and let the
+                      magic of literature awaken your spirit.
                     </p>
                   </NavLink>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/category/fiction" title="Fiction">
-              Dive into worlds of imagination and creativity with our fiction collection. 
+                Dive into worlds of imagination and creativity with our fiction
+                collection.
               </ListItem>
               <ListItem href="/category/poetry" title="Poetry">
-                Let your soul be stirred and your heart moved by the power of poetry. 
+                Let your soul be stirred and your heart moved by the power of
+                poetry.
               </ListItem>
               <ListItem href="/category/essays" title="Essays">
-              Expand your mind and enrich your understanding with our thought-provoking essays.
+                Expand your mind and enrich your understanding with our
+                thought-provoking essays.
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -96,35 +102,33 @@ export function NavMenu() {
   );
 }
 
-
-function ListItem({ className, title, children, href, ...props }){
-  return(
+function ListItem({ className, title, children, href, ...props }) {
+  return (
     <li>
-    <NavigationMenuLink asChild>
-       <NavLink
+      <NavigationMenuLink asChild>
+        <NavLink
           to={href}
           className={cn(
-             'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-             className
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
           )}
           {...props}
-       >
+        >
           <div className="text-sm font-medium leading-none">{title}</div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-             {children}
+            {children}
           </p>
-       </NavLink>
-    </NavigationMenuLink>
- </li>
-  )
+        </NavLink>
+      </NavigationMenuLink>
+    </li>
+  );
 }
-
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div className="hidden md:block">
       <Button
         variant="outline"
         className={cn(
@@ -148,7 +152,7 @@ export function CommandMenu() {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
-    </>
+    </div>
   );
 }
 
@@ -161,4 +165,3 @@ export function CartNav() {
     </NavLink>
   );
 }
-

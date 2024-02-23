@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
   const { data } = useFetch(
-    `/api/products?populate=*&filters[slug][$eq]=${id}`
+    `/api/products?populate=*&filters[slug][$eq]=${slug}`
   );
 
   function decrement() {

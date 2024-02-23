@@ -2,11 +2,15 @@ import { useContext } from "react";
 import { Context } from "@/context";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Clock, X } from "lucide-react";
+import { Clock, Trash2, X } from "lucide-react";
 
-export default function CartItems() {
-  const { cartItems, handleRemoveFromCart, handleCartProductQuantity } =
+import { CartItemsEmpty } from "./cart-items-empty";
+
+export default function CartItems({handleCartProductQuantity}) {
+  const { cartItems, handleRemoveFromCart } =
     useContext(Context);
+
+  if (cartItems.length?.length === 0) return <CartItemsEmpty />;
 
   return (
     <ul className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-500 dark:border-gray-500">
@@ -14,72 +18,64 @@ export default function CartItems() {
         <li key={item.id} className="flex py-6 sm:py-10">
           <div className="shrink-0">
             <img
-              src={item.attributes.title}
+              src={
+                "http://127.0.0.1:1337" +
+                item?.attributes?.image?.data[0].attributes.url
+              }
               alt={item.attributes.title}
-              width={200}
-              height={200}
-              className="h-24 w-24 rounded-md border-2 border-gray-200 object-cover object-center dark:border-gray-800 sm:h-48 sm:w-48"
-              style={{ filter: "blur(20px)" }}
+              className="h-36 w-full rounded-md border-2 border-gray-200 object-cover object-center"
             />
           </div>
 
-          <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-            <div className="relative justify-between pr-9 sm:flex sm:gap-x-6 sm:pr-0">
-              <div>
-                <div className="flex justify-between">
-                  <h3 className="text-sm">
-                    <Link href={`/products/${item.id}`} className="font-medium">
-                      {item.attributes.title}
-                    </Link>
-                  </h3>
-                </div>
-                <p className="mt-1 text-sm font-medium">
-                  {item.attributes.price}
-                </p>
+          <div className="ml-4 sm:ml-6 flex flex-col justify-between pr-9 w-full">
+            <div className="flex-1">
+              <div className="flex justify-between">
+                <h3 className="text-sm ">
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="font-medium text-lg md:text-xl"
+                  >
+                    {item.attributes.title}
+                  </Link>
+                </h3>
               </div>
-
-              <div className="mt-4 sm:mt-0 sm:pr-9">
-                <label htmlFor={`quantity-${item.id}`} className="sr-only">
-                  Quantity, {item.attributes.title}
-                </label>
+              <p className="mt-1 text-sm md:text-md lg:text-lg font-medium">
+                {item.attributes.price} €
+              </p>
+              <p className="mt-1 text-sm lg:text-md font-medium">
+                Format: {/* @ts-ignore */}
+                <strong>Paperback</strong>
+              </p>
+            </div>
+            <div className="ml-auto">
+              <div className="flex flex-row gap-2 items-center">
                 <Button
                   variant="outline"
+                  className="text-xl font-semibold"
                   onClick={() => handleCartProductQuantity("inc", item)}
                 >
                   +
                 </Button>
-                <span>{item.attributes.quantity}</span>
+                <span className="mx-1 text-lx">{item.attributes.quantity}</span>
                 <Button
                   variant="outline"
+                  className="text-xl font-semibold"
                   onClick={() => handleCartProductQuantity("dec", item)}
                 >
                   -
                 </Button>
 
-                <div className="absolute right-0 top-0">
-                  <Button
-                    variant="ghost"
-                    type="button"
-                    className="-mr-2 inline-flex p-2"
-                    onClick={() => handleRemoveFromCart(item)}
-                  >
-                    <span className="sr-only">Remove</span>
-                    <X className="h-5 w-5" aria-hidden="true" />
-                  </Button>
-                </div>
+                <Button
+                  variant="destructive"
+                  type="button"
+                  className=""
+                  onClick={() => handleRemoveFromCart(item)}
+                >
+                  <Trash2 className="text-white" aria-hidden="true" />
+                </Button>
               </div>
             </div>
           </div>
-
-          <p className="mt-4 flex space-x-2 text-sm">
-            <Clock className="h-5 w-5 shrink-0" aria-hidden="true" />
-            <span>Ships in 1 week</span>
-          </p>
-
-          <span className="highlight">
-            <span>&#8377;</span>
-            {item.attributes.price * item.attributes.quantity}
-          </span>
         </li>
       ))}
     </ul>
