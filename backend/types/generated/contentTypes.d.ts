@@ -882,6 +882,10 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToOne',
       'api::publisher.publisher'
     >;
+    availability: Attribute.Enumeration<['in stock', 'pre-order', 'sold out']> &
+      Attribute.DefaultTo<'in stock'>;
+    isNew: Attribute.Boolean & Attribute.DefaultTo<false>;
+    isBestseller: Attribute.Boolean & Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

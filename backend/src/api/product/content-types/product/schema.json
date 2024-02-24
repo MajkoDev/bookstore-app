@@ -51,6 +51,23 @@
       "relation": "manyToOne",
       "target": "api::publisher.publisher",
       "inversedBy": "products"
+    },
+    "availability": {
+      "type": "enumeration",
+      "enum": [
+        "in stock",
+        "pre-order",
+        "sold out"
+      ],
+      "default": "in stock"
+    },
+    "isNew": {
+      "type": "boolean",
+      "default": false
+    },
+    "isBestseller": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
