@@ -1,41 +1,21 @@
-// Test Page for HomePage
 
-import useFetch from "@/hooks/useFetch";
+import ProductRow from "@/components/product-row";
 import useFetchv2 from "@/hooks/useFetchv2";
+import { Link } from "react-router-dom";
 
-const data = [
-  { id: 1, title: "No Longer Human" },
-  { id: 2, title: "Kokoro" },
-  { id: 3, title: "Pale Fire" },
-  { id: 4, title: "Snow Country" },
-  { id: 5, title: "Castle" },
-  { id: 6, title: "Setting Sun" },
-  { id: 7, title: "Plague" },
-];
-
-const data2 = [
-  { id: 1, title: "No Longer Human" },
-  { id: 2, title: "Kokoro" },
-  { id: 3, title: "Pale Fire" },
-];
 
 export default function TestPage() {
-  const { data: bestsellerProducts } = useFetchv2(
-    `http://localhost:1337/api/products?populate=*&[filters][type][$eq]=isNew`
-  );
-  const { data: newProducts } = useFetchv2(
-    `http://localhost:1337/api/products?populate=*&[filters][type][$eq]=isBestseller`
+  const { data: slider } = useFetchv2(
+    `http://localhost:1337/api/slider?populate=*`
   );
 
-  console.log(newProducts);
-  console.log(bestsellerProducts);
-
+  
   return (
     <div>
       {/* SLIDER */}
 
-      <div className="h-96 w-full bg-cover bg-slate-300 rounded-md">
-        <div className="flex items-center justify-center w-full h-full bg-opacity-80">
+      <div className="h-96 w-full bg-cover bg-slate-300 rounded-md relative">
+        <div className="flex-none items-center justify-center w-full h-full bg-opacity-80">
           <h1 className="text-center font-semibold text-3xl capitalize">
             Slider
           </h1>
@@ -43,40 +23,8 @@ export default function TestPage() {
       </div>
 
       {/* SLIDER */}
-
-      {data2.length === 0 ? null : (
-        <section>
-          <h1 className="py-6 text-2xl font-semibold ml-3">
-            New & Forthcoming Books
-          </h1>
-          <div className="pl-3 relative flex flex-row gap-x-2 overflow-x-auto whitespace-nowrap py-3">
-            {data2.map((book) => (
-              <div
-                key={book.id}
-                className="w-44 h-64 bg-slate-400 rounded-md py-4 px-2 inline-block hover:scale-105 ease-in-out duration-300 scroll-smooth"
-              >
-                <h2 className="mt-auto text-center text-slate-50">{book.title}</h2>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* FEATURES */}
-
-      <section>
-        <h1 className="py-6 text-2xl font-semibold">Best Selling Books</h1>
-        <div className="relative flex flex-row gap-x-2 overflow-x-auto whitespace-nowrap py-3">
-          {data.map((book) => (
-            <div
-              key={book.id}
-              className="flex-none w-44 h-64 bg-slate-400 rounded-md py-4 px-2 inline-block hover:scale-105 ease-in-out duration-300 scroll-smooth"
-            >
-              <h2 className="text-center text-slate-50">{book.title}</h2>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ProductRow title="New & Forthcoming Books" type="isNew" />
+      <ProductRow title="Best Selling Books" type="isBestseller" />
 
       {/* CATEGORIES */}
 
