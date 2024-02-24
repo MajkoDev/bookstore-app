@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 const CategoryPage = () => {
   const { slug } = useParams();
 
- 
   const { data } = useFetch(
     `/api/products?populate=*&[filters][categories][slug]=${slug}`
   );
@@ -24,9 +23,11 @@ const CategoryPage = () => {
         </div>
       </div>
 
-      {data?.data?.map((item) => (
-        <CategoryCard key={item.id} item={item} />
-      ))}
+      <div className="">
+        {data?.data?.map((item) => (
+          <CategoryCard key={item.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 };

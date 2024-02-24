@@ -23,6 +23,9 @@ import ProductsPage from "./pages/Products";
 import ProductPage from "./pages/Product";
 import SuccessPage from "./pages/Success";
 import CartPage from "./pages/Cart";
+import TestPage from "./pages/Test";
+import TestHome from "./pages/TestHome";
+import TestProducts from "./pages/TestProducts";
 
 const client = new ApolloClient({
   uri: `http://localhost:1337/graphql`,
@@ -39,6 +42,10 @@ const router = createBrowserRouter(
 
       <Route path="/cart" element={<CartPage />} />
       <Route path="/success" element={<SuccessPage />} />
+
+      <Route path="/test" element={<TestPage />} />
+      <Route path="/test-home" element={<TestHome />} />
+      <Route path="/test-products" element={<TestProducts />} />
     </Route>
   )
 );

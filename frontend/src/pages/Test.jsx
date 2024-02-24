@@ -1,28 +1,20 @@
-
 import ProductRow from "@/components/product-row";
+import Slider from "@/components/slider";
 import useFetchv2 from "@/hooks/useFetchv2";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 export default function TestPage() {
-  const { data: slider } = useFetchv2(
-    `http://localhost:1337/api/slider?populate=*`
+  const { data: categories } = useFetchv2(
+    `http://localhost:1337/api/categories?populate=*`
   );
 
-  
+  console.log(categories);
+
   return (
     <div>
-      {/* SLIDER */}
+      <Slider />
 
-      <div className="h-96 w-full bg-cover bg-slate-300 rounded-md relative">
-        <div className="flex-none items-center justify-center w-full h-full bg-opacity-80">
-          <h1 className="text-center font-semibold text-3xl capitalize">
-            Slider
-          </h1>
-        </div>
-      </div>
-
-      {/* SLIDER */}
       <ProductRow title="New & Forthcoming Books" type="isNew" />
       <ProductRow title="Best Selling Books" type="isBestseller" />
 
@@ -31,17 +23,23 @@ export default function TestPage() {
       <section className="mb-8">
         <h1 className="py-6 text-2xl font-semibold text-center">Categories</h1>
         <div className="flex flex-col md:flex-row flex-wrap gap-2 ">
-          <div className="h-32 grow bg-slate-200 rounded-md p-2">
-            <h2 className="text-center">Fiction</h2>
-          </div>
-          <div className="h-32 grow bg-slate-200 rounded-md p-2 flex flex-col justify-center items-center cursor-pointer">
-            <h2 className="text-center font-extrabold text-2xl hover:scale-110 ease-in-out duration-300">
-              Poetry
-            </h2>
-          </div>
-          <div className="h-32 grow bg-slate-200 rounded-md p-2">
-            <h2 className="text-center">Essays</h2>
-          </div>
+          {categories?.map((category) => (
+            <div
+              key={category.id}
+              className="h-32 grow bg-slate-200 rounded-md p-2 flex flex-col justify-center items-center cursor-pointer opacity-80"
+              style={{
+                backgroundImage: `url("http://127.0.0.1:1337${category?.attributes?.image?.data?.attributes.url}")`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                filter: "brightness(0.8)",
+              }}
+            >
+              <h2 className="text-center text-slate-50 font-extrabold text-2xl hover:scale-110 ease-in-out duration-300 capitalize">
+                {category.attributes.title}
+              </h2>
+            </div>
+          ))}
         </div>
       </section>
 

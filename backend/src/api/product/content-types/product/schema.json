@@ -68,6 +68,15 @@
     "isBestseller": {
       "type": "boolean",
       "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "normal",
+        "isNew",
+        "isBestseller"
+      ],
+      "default": "normal"
     }
   }
 }
