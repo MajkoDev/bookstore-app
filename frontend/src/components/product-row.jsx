@@ -26,7 +26,7 @@ export default function ProductRow({ title, type }) {
                 }}
               ></div>
               <div className="w-44 px-1">
-                <h1 className="text-center font-medium text-slate-900 overflow-hidden">
+                <h1 className="text-center font-medium text-slate-700 overflow-hidden">
                   {book.attributes.title}
                 </h1>
               </div>

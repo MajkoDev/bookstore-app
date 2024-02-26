@@ -29,11 +29,11 @@ export default function ProductGrid({ products }) {
                 "http://127.0.0.1:1337" +
                 item?.attributes?.image?.data[0].attributes.url
               }
-              alt="Image of Book"
+              alt={item.attributes.title}
               className="w-full h-full sm:h-80 md:h-96 lg:h-80 xl:h-96 object-cover object-center hover:scale-105 duration-300"
             />
             <div className="pl-1">
-              <h3 className="pt-3 text-[18px] font-semibold ">
+              <h3 className="pt-3 text-[18px] font-semibold">
                 {item.attributes.title}
               </h3>
               <p className="mt-1 font-base text-slate-600">

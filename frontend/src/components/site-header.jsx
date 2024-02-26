@@ -1,5 +1,10 @@
-import { NavLink } from "react-router-dom";
-import { CircleIcon, ShoppingBasketIcon } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import {
+  BookAIcon,
+  BookIcon,
+  CircleIcon,
+  ShoppingBasketIcon,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import {
   NavigationMenu,
@@ -19,6 +24,7 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command";
+import useFetchv2 from "@/hooks/useFetchv2";
 
 export default function Header() {
   return (
@@ -68,9 +74,9 @@ export function NavMenu() {
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
-                  <NavLink
+                  <Link
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    to="/"
+                    to="/products"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
                       The Bookish Retreat
@@ -79,7 +85,7 @@ export function NavMenu() {
                       Step into our realm of boundless imagination and let the
                       magic of literature awaken your spirit.
                     </p>
-                  </NavLink>
+                  </Link>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/category/fiction" title="Fiction">
@@ -126,6 +132,14 @@ function ListItem({ className, title, children, href, ...props }) {
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const { data } = useFetchv2(
+    `/api/products?populate=*&filters[title][$contains]=${query}`
+  );
+
+  const onChange = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <div className="hidden md:block">
@@ -139,16 +153,24 @@ export function CommandMenu() {
         <span className="inline-flex">Search...</span>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput
+          onChange={onChange}
+          placeholder="Type a command or search..."
+        />
+
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Links">
-            <CommandItem key={1} onSelect={() => {}}>
-              <div className="mr-2 flex h-4 items-center justify-center">
-                <CircleIcon className="h-3" />
-              </div>
-              Vladimir Nabokov
-            </CommandItem>
+          <CommandGroup key={1} heading="Links" onClick={() => setOpen(false)}>
+            {data?.map((item) => (
+              <Link to={`/product/${item.attributes.slug}`} key={item.id} >
+                <CommandItem  >
+                  <div className="mr-2 flex h-4 items-center justify-center">
+                    <BookIcon className="h-3" />
+                  </div>
+                  {item.attributes.title}
+                </CommandItem>
+              </Link>
+            ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>

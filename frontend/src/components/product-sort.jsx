@@ -1,3 +1,5 @@
+import ProductFilter from "./product-filter";
+
 import {
   Select,
   SelectContent,
@@ -20,7 +22,12 @@ const sortOptions = [
   { name: "Price, high to low", value: "desc" },
 ];
 
-export default function ProductSort({ setSort }) {
+export default function ProductSort({
+  setSort,
+  selectedCats,
+  setSelectedCats,
+  handleChange,
+}) {
   return (
     <div className="flex items-center">
       <Select onValueChange={(value) => setSort(value)}>
@@ -47,6 +54,11 @@ export default function ProductSort({ setSort }) {
          <ProductFilters />
          -- responsive design, sidebar
         */}
+          <ProductFilter
+            selectedCats={selectedCats}
+            setSelectedCats={setSelectedCats}
+            handleChange={handleChange}
+          />
         </SheetContent>
         <SheetTrigger className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
           <Filter className="h-5 w-5" aria-hidden="true" />
