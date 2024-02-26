@@ -1,30 +1,48 @@
 import useFetch from "@/hooks/useFetch";
+import useFetchv2 from "@/hooks/useFetchv2";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryPage = () => {
   const { slug } = useParams();
 
-  const { data } = useFetch(
-    `/api/products?populate=*&[filters][categories][slug]=${slug}`
+  const { data: category } = useFetchv2(
+    `/api/categories?populate=*&filters[slug][$eq]=${slug}`
   );
+
+  const { data } = useFetchv2(
+    `/api/products?populate=*&[filters][categories][slug]=${slug}&pagination[pageSize]=3`
+  );
+
+  console.log(category?.[0]?.attributes?.image);
 
   return (
     <div>
-      <div className="h-80 w-full bg-cover bg-slate-300 rounded-md">
-        <div className="flex items-center justify-center w-full h-full bg-opacity-80">
-          <h1 className="text-center font-semibold text-3xl capitalize">
-            {
-              data?.data?.[0]?.attributes?.categories?.data?.[0]?.attributes
-                ?.title
-            }
+      <div
+        className="h-80 w-full bg-cover rounded-md"
+        
+        style={{
+          backgroundImage: `url("http://127.0.0.1:1337${category?.[0]?.attributes?.image?.data?.attributes.url}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          filter: "brightness(0.8)",
+          
+        }}
+      >
+        <div className="flex flex-col items-center justify-center w-full h-full bg-opacity-80 gap-2 px-6 md:px-12">
+          <h1 className="text-center font-semibold text-xl md:text-3xl capitalize text-white">
+            {category?.[0]?.attributes?.subtitle}
           </h1>
+          <h2 className="text-center font-light text-md md:text-xl text-white">
+            {category?.[0]?.attributes?.description}
+          </h2>
         </div>
       </div>
 
-      <div className="">
-        {data?.data?.map((item) => (
+      <div className="flex flex-col gap-1 [&>*:nth-child(even)]:mr-24 [&>*:nth-child(odd)]:ml-24">
+        {data?.map((item) => (
           <CategoryCard key={item.id} item={item} />
         ))}
       </div>
@@ -36,26 +54,28 @@ export default CategoryPage;
 
 function CategoryCard({ item }) {
   return (
-    <article className="p-4 m-2">
-      <div className="flex flex-row gap-4">
+    <article className="p-3 m-2 shadow-xl rounded-sm">
+      <div className="flex flex-row gap-4 h-full items-center">
         <div className="flex-none">
+        <Link to={`/product/${item.attributes.slug}`}>
           <img
             src={
               "http://127.0.0.1:1337" +
               item?.attributes?.image?.data[0].attributes.url
             }
             alt="Image of Book"
-            className="w-full h-64 object-cover object-center hover:scale-105 duration-300"
-          />
+            className="w-full h-52 md:h-64 object-cover object-center hover:scale-105 duration-300 rounded-sm"
+            />
+            </Link>
         </div>
         <div className="flex-auto">
-          <h1 className="text-slate-900 font-bold text-lg">
+          <h1 className="text-slate-900 font-bold text-md md:text-lg">
             {item.attributes.title}
           </h1>
-          <h2 className="text-slate-700 font-semibold text-md mb-3">
+          <h2 className="text-slate-700 font-semibold text-sm md:text-md mb-3">
             {item.attributes.author}
           </h2>
-          <div className="h-48 overflow-hidden relative">
+          <div className="h-48 overflow-hidden relative text-xs md:text-sm">
             <BlocksRenderer
               className={`absolute inset-0 overflow-y-auto`}
               content={item.attributes.description}
