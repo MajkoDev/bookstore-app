@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { Context } from "@/context";
-import { makePaymentRequest } from "@/lib/api";
+
 import { loadStripe } from "@stripe/stripe-js";
+import { makePaymentRequest } from "@/lib/api";
+
 import CartItems from "@/components/cart-items";
-import { CartItemsEmpty } from "@/components/cart-items-empty";
 import CartSummary from "@/components/cart-summary";
+import CartItemsEmpty from "@/components/cart-items-empty";
 
 function CartPage() {
-  const { cartItems, cartSubTotal, handleCartProductQuantity } = useContext(Context);
+  const { cartItems } = useContext(Context);
 
   const stripePromise = loadStripe(
     "pk_test_51Ok9HJF1IXYkC9JQzInVqi4B5eIgwIP2tqyeF6rBPLjzIqlQ1yJJ7t8DCMpLwJrNqI0xAl3SpLVBWZ331kKJcxdx00HNeLQlcO"
@@ -36,17 +38,16 @@ function CartPage() {
             Shopping Cart
           </h1>
 
-          <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
             <section aria-labelledby="cart-heading" className="lg:col-span-7">
               <h2 id="cart-heading" className="sr-only">
                 Items in your shopping cart
               </h2>
               {!cartItems.length && <CartItemsEmpty />}
-
-              {!!cartItems.length && <CartItems handleCartProductQuantity={handleCartProductQuantity} />}
+              {!!cartItems.length && <CartItems />}
             </section>
             <CartSummary handlePayment={handlePayment} />
-          </form>
+          </div>
         </main>
       </div>
     </>

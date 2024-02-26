@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Plus, XCircle } from "lucide-react";
 
-export function CartItemsEmpty() {
+export default function CartItemsEmpty() {
   return (
     <div className="flex h-[450px] shrink-0 items-center justify-center rounded-md border-2 border-dashed border-gray-300 dark:border-gray-800">
       <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
@@ -11,7 +11,7 @@ export function CartItemsEmpty() {
         <p className="mb-4 mt-2 text-sm text-muted-foreground">
           Add products to your cart.
         </p>
-        <Link to="/">
+        <Link to="/products">
           <Button size="sm" className="relative">
             <Plus className="mr-2 h-4 w-4" />
             Add Products

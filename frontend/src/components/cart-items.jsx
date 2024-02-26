@@ -4,13 +4,8 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { Clock, Trash2, X } from "lucide-react";
 
-import { CartItemsEmpty } from "./cart-items-empty";
-
-export default function CartItems({handleCartProductQuantity}) {
-  const { cartItems, handleRemoveFromCart } =
-    useContext(Context);
-
-  if (cartItems.length?.length === 0) return <CartItemsEmpty />;
+export default function CartItems() {
+  const { cartItems, handleRemoveFromCart, handleCartProductQuantity } = useContext(Context);
 
   return (
     <ul className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-500 dark:border-gray-500">
@@ -43,7 +38,7 @@ export default function CartItems({handleCartProductQuantity}) {
                 {item.attributes.price} €
               </p>
               <p className="mt-1 text-sm lg:text-md font-medium">
-                Format: {/* @ts-ignore */}
+                Format:{" "}
                 <strong>Paperback</strong>
               </p>
             </div>
@@ -56,7 +51,7 @@ export default function CartItems({handleCartProductQuantity}) {
                 >
                   +
                 </Button>
-                <span className="mx-1 text-lx">{item.attributes.quantity}</span>
+                <span className="mx-1 text-3lx">{item.attributes.quantity}</span>
                 <Button
                   variant="outline"
                   className="text-xl font-semibold"
