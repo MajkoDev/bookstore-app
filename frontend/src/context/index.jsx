@@ -1,9 +1,7 @@
-
 import useLocalStorage from "@/hooks/useLocalStora";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 
 export const Context = createContext();
-
 
 export default function AppContext({ children }) {
   // Data from Strapi
@@ -12,6 +10,7 @@ export default function AppContext({ children }) {
 
   // Shopping Cart
   const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
+  
   const [cartCount, setCartCount] = useLocalStorage(0);
   const [cartSubTotal, setCartSubTotal] = useLocalStorage(0);
 
@@ -25,6 +24,8 @@ export default function AppContext({ children }) {
     cartItems.map(
       (item) => (subTotal += item.attributes.price * item.attributes.quantity)
     );
+    subTotal = Math.round(subTotal * 100) / 100;
+
     setCartSubTotal(subTotal);
   }, [cartItems]);
 
@@ -61,21 +62,24 @@ export default function AppContext({ children }) {
   };
 
   // Changing quantity of product in cart
-  const handleCartProductQuantity = (type, product) => {
-    // prevent mutating state
-    let items = [...cartItems];
-    // find index of product based on id
-    let index = items?.findIndex((p) => p.id === product?.id);
+  const handleCartProductQuantity = useCallback(
+    (type, product) => {
+      // prevent mutating state
+      let items = [...cartItems];
+      // find index of product based on id
+      let index = items?.findIndex((p) => p.id === product?.id);
 
-    // increment or decrement the quantity based on the type
-    if (type === "inc") {
-      items[index].attributes.quantity += 1;
-    } else if (type === "dec") {
-      if (items[index].attributes.quantity === 1) return;
-      items[index].attributes.quantity -= 1;
-    }
-    setCartItems(items);
-  };
+      // increment or decrement the quantity based on the type
+      if (type === "inc") {
+        items[index].attributes.quantity += 1;
+      } else if (type === "dec") {
+        if (items[index].attributes.quantity === 1) return;
+        items[index].attributes.quantity -= 1;
+      }
+      setCartItems(items);
+    },
+    [cartItems, setCartItems]
+  );
 
   return (
     <Context.Provider
