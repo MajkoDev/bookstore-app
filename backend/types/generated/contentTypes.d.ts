@@ -884,10 +884,14 @@ export interface ApiProductProduct extends Schema.CollectionType {
     >;
     availability: Attribute.Enumeration<['in stock', 'pre-order', 'sold out']> &
       Attribute.DefaultTo<'in stock'>;
-    isNew: Attribute.Boolean & Attribute.DefaultTo<false>;
-    isBestseller: Attribute.Boolean & Attribute.DefaultTo<false>;
     type: Attribute.Enumeration<['normal', 'isNew', 'isBestseller']> &
       Attribute.DefaultTo<'normal'>;
+    pages: Attribute.Integer;
+    format: Attribute.Enumeration<
+      ['paperback', 'hardcover', 'kindle', 'audiobook']
+    >;
+    language: Attribute.String;
+    isbn13: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

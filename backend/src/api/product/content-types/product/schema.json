@@ -61,14 +61,6 @@
       ],
       "default": "in stock"
     },
-    "isNew": {
-      "type": "boolean",
-      "default": false
-    },
-    "isBestseller": {
-      "type": "boolean",
-      "default": false
-    },
     "type": {
       "type": "enumeration",
       "enum": [
@@ -77,6 +69,24 @@
         "isBestseller"
       ],
       "default": "normal"
+    },
+    "pages": {
+      "type": "integer"
+    },
+    "format": {
+      "type": "enumeration",
+      "enum": [
+        "paperback",
+        "hardcover",
+        "kindle",
+        "audiobook"
+      ]
+    },
+    "language": {
+      "type": "string"
+    },
+    "isbn13": {
+      "type": "biginteger"
     }
   }
 }
