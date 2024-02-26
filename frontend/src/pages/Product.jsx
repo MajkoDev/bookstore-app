@@ -29,11 +29,13 @@ const ProductPage = () => {
   if (!data) return;
   const product = data?.data?.[0]?.attributes;
 
+  console.log(product)
+
   return (
     <main className="mx-auto max-w-5xl sm:px-6 sm:pt-16 lg:px-8">
       <div className="mx-auto max-w-2xl lg:max-w-none">
         <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 grid-rows-subgrid">
-          <div className="aspect-h-1 aspect-w-1 w-full">
+          <div className="aspect-h-1 aspect-w-1 w-full grid place-items-center">
             <img
               src={
                 "http://127.0.0.1:1337" + product.image?.data[0].attributes.url
@@ -44,15 +46,14 @@ const ProductPage = () => {
           </div>
           {/* PRODUCT CARD */}
           <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-            <h1 className="text-4xl font-bold tracking-tight">
+            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">
               {product.title}
             </h1>
 
-            <h2 className="sr-only">Product Information</h2>
-            <h1 className="mt-3 text-xl tracking-tight text-slate-600 font-light">
+            <h1 className="mt-3 text-lg lg:text-xl tracking-tight text-slate-600 font-light">
               by{" "}
               <Link href="#">
-                <span className="text-2xl font-semibold hover:text-slate-800 hover:cursor-pointer">
+                <span className="text-xl lg:text-2xl font-semibold hover:text-slate-800 hover:cursor-pointer">
                   {product.author}
                 </span>
               </Link>
@@ -84,11 +85,11 @@ const ProductPage = () => {
 
               <div className="ml-auto">
                 <h2 className="mt-2 ml-2 text-3xl font-bold">
-                  {product.price} €
+                  {(product.price).toFixed(2)} €
                 </h2>
               </div>
 
-              <form className="mt-4">
+              <div className="mt-4">
                 <div className="flex justify-center">
                   <Button
                     type="button"
@@ -101,7 +102,7 @@ const ProductPage = () => {
                     Add to cart
                   </Button>
                 </div>
-              </form>
+              </div>
             </div>
 
             {/* DESCRIPTION */}
@@ -113,7 +114,9 @@ const ProductPage = () => {
                 content={product.description}
                 blocks={{
                   paragraph: ({ children }) => (
-                    <p className="mb-2">{children}</p>
+                    <p className="mb-2 text-sm md:text-md lg:text-base">
+                      {children}
+                    </p>
                   ),
                 }}
               />
