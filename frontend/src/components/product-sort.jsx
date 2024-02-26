@@ -20,7 +20,7 @@ const sortOptions = [
   { name: "Price, high to low", value: "desc" },
 ];
 
-function ProductSort({ setSort }) {
+export default function ProductSort({ setSort }) {
   return (
     <div className="flex items-center">
       <Select onValueChange={(value) => setSort(value)}>
@@ -43,10 +43,12 @@ function ProductSort({ setSort }) {
               Narrow your product search using the options below.
             </SheetDescription>
           </SheetHeader>
-          <ProductFilters />
+          {/*
+         <ProductFilters />
+         -- responsive design, sidebar
+        */}
         </SheetContent>
         <SheetTrigger className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
-          <span className="sr-only">Filters</span>
           <Filter className="h-5 w-5" aria-hidden="true" />
         </SheetTrigger>
       </Sheet>
