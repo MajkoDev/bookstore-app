@@ -1,11 +1,8 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-  BookAIcon,
-  BookIcon,
-  CircleIcon,
-  ShoppingBasketIcon,
-} from "lucide-react";
-import { Button } from "./ui/button";
+import useFetch from "@/hooks/useFetch";
+import { cn } from "@/lib/utils";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,8 +11,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -24,7 +19,8 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command";
-import useFetchv2 from "@/hooks/useFetchv2";
+import { Button } from "./ui/button";
+import { BookIcon, ShoppingBasketIcon } from "lucide-react";
 
 export default function Header() {
   return (
@@ -133,7 +129,7 @@ function ListItem({ className, title, children, href, ...props }) {
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const { data } = useFetchv2(
+  const { data } = useFetch(
     `/api/products?populate=*&filters[title][$contains]=${query}`
   );
 
@@ -162,8 +158,8 @@ export function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup key={1} heading="Links" onClick={() => setOpen(false)}>
             {data?.map((item) => (
-              <Link to={`/product/${item.attributes.slug}`} key={item.id} >
-                <CommandItem  >
+              <Link to={`/product/${item.attributes.slug}`} key={item.id}>
+                <CommandItem>
                   <div className="mr-2 flex h-4 items-center justify-center">
                     <BookIcon className="h-3" />
                   </div>

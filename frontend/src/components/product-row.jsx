@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import useFetchv2 from "@/hooks/useFetchv2";
+import useFetch from "@/hooks/useFetch";
 
 export default function ProductRow({ title, type }) {
-  const { data, loading, error } = useFetchv2(
+  const { data, loading, error } = useFetch(
     `http://localhost:1337/api/products?populate=*&[filters][type][$eq]=${type}`
   );
 
@@ -16,11 +16,15 @@ export default function ProductRow({ title, type }) {
           <Message message="Loading" />
         ) : (
           data?.map((book) => (
-            <Link key={book.id} to={`/product/${book.attributes.slug}`}>
+            <Link
+              key={book.id}
+              to={`/product/${book.attributes.slug}`}
+              className="mb-3"
+            >
               <div
                 className="flex-none w-44 h-64 rounded-sm py-4 px-2 inline-block hover:scale-105 ease-in-out duration-300 scroll-smooth cursor-pointer"
                 style={{
-                  backgroundImage: `url("http://127.0.0.1:1337${book?.attributes?.image?.data[0].attributes.url}")`,
+                  backgroundImage: `url("http://127.0.0.1:1337${book?.attributes?.image?.data[0].attributes.formats.small.url}")`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}

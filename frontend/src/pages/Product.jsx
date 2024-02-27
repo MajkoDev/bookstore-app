@@ -1,17 +1,18 @@
 import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "@/context";
-import useFetch from "@/hooks/useFetch";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import useFetchProduct from "@/hooks/useFetchProduct";
 
-const ProductPage = () => {
+export default function ProductPage() {
   const { slug } = useParams();
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
-  const { data } = useFetch(
+
+  const { data } = useFetchProduct(
     `/api/products?populate=*&filters[slug][$eq]=${slug}`
   );
 
@@ -29,8 +30,6 @@ const ProductPage = () => {
   if (!data) return;
   const product = data?.data?.[0]?.attributes;
 
-  console.log(product)
-
   return (
     <main className="mx-auto max-w-5xl sm:px-6 sm:pt-16 lg:px-8">
       <div className="mx-auto max-w-2xl lg:max-w-none">
@@ -41,7 +40,7 @@ const ProductPage = () => {
                 "http://127.0.0.1:1337" + product.image?.data[0].attributes.url
               }
               alt="Picture of the product"
-              className="h-full w-96 border-2 border-gray-200 object-cover object-center shadow-sm dark:border-gray-800 sm:rounded-lg"
+              className="h-full w-96 border-2 border-gray-200 object-cover object-center shadow-sm sm:rounded-lg"
             />
           </div>
           {/* PRODUCT CARD */}
@@ -85,7 +84,7 @@ const ProductPage = () => {
 
               <div className="ml-auto">
                 <h2 className="mt-2 ml-2 text-3xl font-bold">
-                  {(product.price).toFixed(2)} €
+                  {product?.price.toFixed(2)} €
                 </h2>
               </div>
 
@@ -94,7 +93,7 @@ const ProductPage = () => {
                   <Button
                     type="button"
                     onClick={() => {
-                      handleAddToCart(data?.data?.[0], quantity);
+                      handleAddToCart(data.data?.[0], quantity);
                       setQuantity(1);
                     }}
                     className="w-2/3 bg-lime-600 py-6 text-base font-medium text-white hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-lime-500"
@@ -110,18 +109,19 @@ const ProductPage = () => {
               <h3 className="my-2 font-bold text-xl text-slate-600 dark:text-slate-200 ml-auto">
                 Description
               </h3>
-              <BlocksRenderer
-                content={product.description}
-                blocks={{
-                  paragraph: ({ children }) => (
-                    <p className="mb-2 text-sm md:text-md lg:text-base">
-                      {children}
-                    </p>
-                  ),
-                }}
-              />
-              {/*
-               */}
+
+              {product?.description ? (
+                <BlocksRenderer
+                  content={product.description}
+                  blocks={{
+                    paragraph: ({ children }) => (
+                      <p className="mb-2 text-sm md:text-md lg:text-base">
+                        {children}
+                      </p>
+                    ),
+                  }}
+                />
+              ) : null}
             </div>
 
             {/* PRODUCT DETAILS */}
@@ -129,22 +129,36 @@ const ProductPage = () => {
               <h3 className="my-2 font-bold text-xl text-slate-600 dark:text-slate-200 ml-auto">
                 Product Details
               </h3>
-              <div className="flex flex-row gap-2">
-                <div className="w-20">
-                  <p className="text-slate-400">Publisher</p>
-                </div>
-                <div className="flex-1">
-                  <p className="text-slate-800">
-                    New Directions Publishing Corporation
-                  </p>
-                </div>
-              </div>
+              <ProductInformations type="Pages" bookInfo={product?.pages} />
+              <ProductInformations
+                type="Language"
+                bookInfo={product?.language}
+              />
+              <ProductInformations
+                type="Publisher"
+                bookInfo={product?.publisher}
+              />
+              {product?.format ? (
+                <ProductInformations type="Format" bookInfo={product?.format} />
+              ) : null}
+              <ProductInformations type="ISBN-13" bookInfo={product?.isbn13} />
             </div>
           </div>
         </div>
       </div>
     </main>
   );
-};
+}
 
-export default ProductPage;
+function ProductInformations({ type, bookInfo }) {
+  return (
+    <div className="flex flex-row gap-2">
+      <div className="w-20">
+        <p className="text-slate-400 font-light">{type}</p>
+      </div>
+      <div className="flex-1">
+        <p className="text-slate-800 capitalize font-medium">{bookInfo}</p>
+      </div>
+    </div>
+  );
+}

@@ -10,9 +10,13 @@ export default function AppContext({ children }) {
 
   // Shopping Cart
   const [cartItems, setCartItems] = useLocalStorage("cartItems", []);
-  
+
   const [cartCount, setCartCount] = useLocalStorage(0);
   const [cartSubTotal, setCartSubTotal] = useLocalStorage(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   // Updating 'cartCount' and 'cartSubTotal' if any change in 'cartItems'
   useEffect(() => {

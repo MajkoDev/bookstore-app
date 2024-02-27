@@ -2,7 +2,7 @@ import axios from "axios";
 
 const params = {
   headers: {
-    Authorization: "bearer " + `${import.meta.env.VITE_STRIPE_SECRET_KEY}`,
+    Authorization: "bearer " + `${import.meta.env.VITE_STRAPI_API_TOKEN}`,
   },
 };
 
@@ -22,6 +22,6 @@ export const fetchDataFromApi = async (url) => {
 export const makePaymentRequest = axios.create({
   baseURL: `${import.meta.env.VITE_REACT_URL}`,
   headers: {
-    Authorization: "bearer " + `${import.meta.env.VITE_STRIPE_SECRET_KEY}`,
+    Authorization: "bearer " + `${import.meta.env.VITE_STRAPI_API_TOKEN}`,
   },
 });

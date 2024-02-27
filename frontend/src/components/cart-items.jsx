@@ -1,25 +1,27 @@
 import { useContext } from "react";
 import { Context } from "@/context";
 import { Link } from "react-router-dom";
-
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 
 export default function CartItems() {
-  const { cartItems, handleRemoveFromCart, handleCartProductQuantity } = useContext(Context);
+  const { cartItems, handleRemoveFromCart, handleCartProductQuantity } =
+    useContext(Context);
 
   return (
-    <ul className="divide-y divide-gray-200 border-y border-gray-200 bg-slate-200">
+    <ul className="divide-y divide-gray-200 border-y border-gray-200 relative">
+      <div className="absolute inset-0 bg-slate-100 opacity-70 rounded-lg"></div>
+
       {cartItems?.map((item) => (
-        <li key={item.id} className="flex py-6 sm:py-10">
-          <div className="shrink-0">
+        <li key={item.id} className="flex py-6 sm:py-10 relative m-1 ">
+          <div className="shrink-0 pl-6">
             <img
               src={
                 "http://127.0.0.1:1337" +
                 item?.attributes?.image?.data[0].attributes.url
               }
               alt={item.attributes.title}
-              className="h-36 w-full rounded-md border-2 border-gray-200 object-cover object-center"
+              className="h-36 w-full rounded-md border-2 border-slate-200 object-cover object-center"
             />
           </div>
 
@@ -36,11 +38,10 @@ export default function CartItems() {
                 </h3>
               </div>
               <p className="mt-1 text-sm md:text-md lg:text-lg font-medium">
-                {item.attributes.price} €
+                {item.attributes.price.toFixed(2)} €
               </p>
               <p className="mt-1 text-sm lg:text-md font-medium">
-                Format:{" "}
-                <strong>Paperback</strong>
+                Format: <strong>Paperback</strong>
               </p>
             </div>
             <div className="ml-auto">
@@ -52,7 +53,9 @@ export default function CartItems() {
                 >
                   +
                 </Button>
-                <span className="mx-1 text-3lx">{item.attributes.quantity}</span>
+                <span className="mx-1 text-3lx">
+                  {item.attributes.quantity}
+                </span>
                 <Button
                   variant="outline"
                   className="text-xl font-semibold"

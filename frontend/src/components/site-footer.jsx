@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { Github, Instagram, Twitter } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import Separator from "./separator";
@@ -63,8 +62,6 @@ export default function Footer() {
   );
 }
 
-
-
 function Links() {
   return (
     <div className="text-end justify-evenly grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-6">
@@ -97,7 +94,8 @@ function Trademark() {
           The Bookish Retreat
         </h2>
         <span className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-          © {new Date().getFullYear()} The Bookish Retreat™ . All Rights Reserved.
+          © {new Date().getFullYear()} The Bookish Retreat™ . All Rights
+          Reserved.
         </span>
       </span>
     </div>

@@ -1,17 +1,31 @@
 import { useEffect, useState } from "react";
-import { fetchDataFromApi } from "@/lib/api";
+import axios from "axios";
 
-export default function useFetch(endpoint) {
-  const [data, setData] = useState();
+const makeRequest = axios.create({
+  baseURL: `${import.meta.env.VITE_REACT_URL}`,
+  headers: {
+    Authorization: "bearer " + `${import.meta.env.VITE_STRAPI_API_TOKEN}`,
+  },
+});
+
+export default function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    makeApiCall();
-  }, [endpoint]);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await makeRequest.get(url);
+        setData(res.data.data);
+      } catch (err) {
+        setError(true);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [url]);
 
-  const makeApiCall = async () => {
-    const res = await fetchDataFromApi(endpoint);
-    setData(res);
-  };
-
-  return { data };
+  return { data, loading, error };
 }

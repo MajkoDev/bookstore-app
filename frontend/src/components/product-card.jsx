@@ -7,7 +7,7 @@ export default function ProductCard({ item }) {
         <img
           src={
             "http://127.0.0.1:1337" +
-            item?.attributes?.image?.data[0].attributes.url
+            item?.attributes?.image?.data[0].attributes?.url
           }
           alt={item.attributes.title}
           className="w-full h-full sm:h-80 md:h-96 lg:h-80 xl:h-96 object-cover object-center hover:scale-105 duration-300"

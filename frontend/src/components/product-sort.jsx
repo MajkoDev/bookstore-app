@@ -1,5 +1,3 @@
-import ProductFilter from "./product-filter";
-
 import {
   Select,
   SelectContent,
@@ -16,6 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Filter } from "lucide-react";
+import ProductFilter from "./product-filter";
 
 const sortOptions = [
   { name: "Price, low to high", value: "asc" },
@@ -50,10 +49,6 @@ export default function ProductSort({
               Narrow your product search using the options below.
             </SheetDescription>
           </SheetHeader>
-          {/*
-         <ProductFilters />
-         -- responsive design, sidebar
-        */}
           <ProductFilter
             selectedCats={selectedCats}
             setSelectedCats={setSelectedCats}
