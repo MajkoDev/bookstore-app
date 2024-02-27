@@ -46,12 +46,6 @@
       "targetField": "title",
       "required": true
     },
-    "publisher": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::publisher.publisher",
-      "inversedBy": "products"
-    },
     "availability": {
       "type": "enumeration",
       "enum": [
@@ -86,7 +80,10 @@
       "type": "string"
     },
     "isbn13": {
-      "type": "biginteger"
+      "type": "string"
+    },
+    "publisher": {
+      "type": "string"
     }
   }
 }
