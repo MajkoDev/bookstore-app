@@ -17,7 +17,7 @@ export default function ProductsPage() {
 
   // Fetching Products Data
   const { data, loading } = useFetch(
-    `/api/products?populate=*&[filters][price][$lt]=${maxPrice}${categoryFilters}&sort=price:${sort}?pagination[page]=1&pagination[pageSize]=27`
+    `/api/products?populate=*&[filters][price][$lt]=${maxPrice}${categoryFilters}&sort=price:${sort}`
   );
 
   console.log(data);
