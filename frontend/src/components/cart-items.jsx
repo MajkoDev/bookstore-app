@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import { Context } from "@/context";
-import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Clock, Trash2, X } from "lucide-react";
+
+import { Button } from "./ui/button";
+import { Trash2 } from "lucide-react";
 
 export default function CartItems() {
   const { cartItems, handleRemoveFromCart, handleCartProductQuantity } = useContext(Context);
 
   return (
-    <ul className="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-500 dark:border-gray-500">
+    <ul className="divide-y divide-gray-200 border-y border-gray-200 bg-slate-200">
       {cartItems?.map((item) => (
         <li key={item.id} className="flex py-6 sm:py-10">
           <div className="shrink-0">
