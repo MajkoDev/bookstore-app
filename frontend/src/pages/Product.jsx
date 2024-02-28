@@ -5,14 +5,14 @@ import { Context } from "@/context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import useFetchProduct from "@/hooks/useFetchProduct";
+import useFetch from "@/hooks/useFetch";
 
 export default function ProductPage() {
   const { slug } = useParams();
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
 
-  const { data } = useFetchProduct(
+  const { data } = useFetch(
     `/api/products?populate=*&filters[slug][$eq]=${slug}`
   );
 
@@ -28,7 +28,7 @@ export default function ProductPage() {
   }
 
   if (!data) return;
-  const product = data?.data?.[0]?.attributes;
+  const product = data?.[0]?.attributes;
 
   return (
     <main className="mx-auto max-w-5xl sm:px-6 sm:pt-16 lg:px-8">
@@ -36,9 +36,7 @@ export default function ProductPage() {
         <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 grid-rows-subgrid">
           <div className="aspect-h-1 aspect-w-1 w-full grid place-items-center">
             <img
-              src={
-                "http://127.0.0.1:1337" + product.image?.data[0].attributes.url
-              }
+              src={product?.image?.data[0].attributes.url}
               alt="Picture of the product"
               className="h-full w-96 border-2 border-gray-200 object-cover object-center shadow-sm sm:rounded-lg"
             />
@@ -46,14 +44,14 @@ export default function ProductPage() {
           {/* PRODUCT CARD */}
           <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
             <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">
-              {product.title}
+              {product?.title}
             </h1>
 
             <h1 className="mt-3 text-lg lg:text-xl tracking-tight text-slate-600 font-light">
               by{" "}
               <Link href="#">
                 <span className="text-xl lg:text-2xl font-semibold hover:text-slate-800 hover:cursor-pointer">
-                  {product.author}
+                  {product?.author}
                 </span>
               </Link>
             </h1>
@@ -93,7 +91,7 @@ export default function ProductPage() {
                   <Button
                     type="button"
                     onClick={() => {
-                      handleAddToCart(data.data?.[0], quantity);
+                      handleAddToCart(data?.[0], quantity);
                       setQuantity(1);
                     }}
                     className="w-2/3 bg-lime-600 py-6 text-base font-medium text-white hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-lime-500"

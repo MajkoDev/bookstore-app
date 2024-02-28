@@ -3,7 +3,8 @@ import useFetch from "@/hooks/useFetch";
 import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
 
 export default function Slider() {
-  const { data } = useFetch(`http://localhost:1337/api/slider?populate=*`);
+  const { data } = useFetch(`/api/slider?populate=*`);
+
   let slides = data?.attributes?.images?.data;
 
   const [current, setCurrent] = useState(0);
@@ -30,7 +31,7 @@ export default function Slider() {
           return (
             <img
               key={s.id}
-              src={`http://127.0.0.1:1337${s.attributes.url}`}
+              src={`${s.attributes.url}`}
               className="object-cover object-center h-full w-full"
             />
           );

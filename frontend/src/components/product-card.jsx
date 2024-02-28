@@ -5,10 +5,7 @@ export default function ProductCard({ item }) {
     <Link className="group text-sm" to={`/product/${item.attributes.slug}`}>
       <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-sm">
         <img
-          src={
-            "http://127.0.0.1:1337" +
-            item?.attributes?.image?.data[0].attributes?.url
-          }
+          src={item?.attributes?.image?.data[0].attributes?.url}
           alt={item.attributes.title}
           className="w-full h-full sm:h-80 md:h-96 lg:h-80 xl:h-96 object-cover object-center hover:scale-105 duration-300"
         />

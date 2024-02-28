@@ -18,7 +18,7 @@ export default function CategoryPage() {
       <div
         className="h-80 w-full bg-cover rounded-md"
         style={{
-          backgroundImage: `url("http://127.0.0.1:1337${category?.[0]?.attributes?.image?.data?.attributes.url}")`,
+          backgroundImage: `url("${category?.[0]?.attributes?.image?.data?.attributes.url}")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -52,8 +52,7 @@ function CategoryCard({ item }) {
           <Link to={`/product/${item.attributes.slug}`}>
             <img
               src={
-                "http://127.0.0.1:1337" +
-                item?.attributes?.image?.data[0].attributes.url
+                 item?.attributes?.image?.data[0].attributes.url
               }
               alt="Image of Book"
               className="w-full h-52 md:h-64 object-cover object-center hover:scale-105 duration-300 rounded-sm"

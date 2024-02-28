@@ -25,7 +25,7 @@ const HomePage = () => {
               key={category.id}
               className="h-32 grow bg-slate-200 rounded-md p-2 flex flex-col justify-center items-center cursor-pointer opacity-80"
               style={{
-                backgroundImage: `url("http://127.0.0.1:1337${category?.attributes?.image?.data?.attributes.formats.medium.url}")`,
+                backgroundImage: `url("${category?.attributes?.image?.data?.attributes?.url}")`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
