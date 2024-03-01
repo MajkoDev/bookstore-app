@@ -1,4 +1,4 @@
-import useLocalStorage from "@/hooks/useLocalStora";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { createContext, useCallback, useEffect, useState } from "react";
 
 export const Context = createContext();
