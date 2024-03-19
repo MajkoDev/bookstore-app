@@ -24,7 +24,7 @@ export default function ProductRow({ title, type }) {
               <div
                 className="flex-none w-44 h-64 rounded-sm py-4 px-2 inline-block hover:scale-105 ease-in-out duration-300 scroll-smooth cursor-pointer"
                 style={{
-                  backgroundImage: `url("${book?.attributes?.image?.data[0].attributes?.url}")`,
+                  backgroundImage: `url("http://localhost:1337${book?.attributes?.image?.data[0].attributes?.url}")`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}

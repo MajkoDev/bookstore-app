@@ -27,8 +27,11 @@ export default function ProductPage() {
     setQuantity((prevState) => prevState + 1);
   }
 
+  // console.log(product?.image?.data[0].attributes.url)
+
   if (!data) return;
   const product = data?.[0]?.attributes;
+  console.log(product)
 
   return (
     <main className="mx-auto max-w-5xl sm:px-6 sm:pt-16 lg:px-8">
@@ -36,7 +39,10 @@ export default function ProductPage() {
         <div className="pb-20 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 grid-rows-subgrid">
           <div className="aspect-h-1 aspect-w-1 w-full grid place-items-center">
             <img
-              src={product?.image?.data[0].attributes.url}
+              src={
+                `http://localhost:1337` +
+                product?.image?.data[0].attributes.url
+              }
               alt="Picture of the product"
               className="h-full w-96 border-2 border-gray-200 object-cover object-center shadow-sm sm:rounded-lg"
             />

@@ -17,7 +17,7 @@ export default function CartItems() {
           <div className="shrink-0 pl-6">
             <img
               src={
-                 item?.attributes?.image?.data[0].attributes.url
+                `http://localhost:1337` +                 item?.attributes?.image?.data[0].attributes.url
               }
               alt={item.attributes.title}
               className="h-36 w-full rounded-md border-2 border-slate-200 object-cover object-center"

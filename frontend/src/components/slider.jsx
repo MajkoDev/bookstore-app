@@ -31,7 +31,7 @@ export default function Slider() {
           return (
             <img
               key={s.id}
-              src={`${s.attributes.url}`}
+              src={`http://localhost:1337` + s.attributes.url}
               className="object-cover object-center h-full w-full"
             />
           );

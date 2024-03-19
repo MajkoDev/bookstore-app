@@ -25,14 +25,14 @@ const HomePage = () => {
               key={category.id}
               className="h-32 grow bg-slate-200 rounded-md p-2 flex flex-col justify-center items-center cursor-pointer opacity-80"
               style={{
-                backgroundImage: `url("${category?.attributes?.image?.data?.attributes?.url}")`,
+                backgroundImage: `url("http://localhost:1337${category?.attributes?.image?.data?.attributes?.url}")`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 filter: "brightness(0.8)",
               }}
             >
-              <Link to={`/category/${category.attributes.title}`}>
+              <Link to={`/category/${category.attributes.slug}`}>
                 <h2 className="text-center text-slate-50 font-extrabold text-2xl hover:scale-110 ease-in-out duration-300 capitalize">
                   {category.attributes.title}
                 </h2>

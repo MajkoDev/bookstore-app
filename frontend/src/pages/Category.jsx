@@ -18,7 +18,7 @@ export default function CategoryPage() {
       <div
         className="h-80 w-full bg-cover rounded-md"
         style={{
-          backgroundImage: `url("${category?.[0]?.attributes?.image?.data?.attributes.url}")`,
+          backgroundImage: `url("http://localhost:1337${category?.[0]?.attributes?.image?.data?.attributes.url}")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -51,7 +51,7 @@ function CategoryCard({ item }) {
         <div className="flex-none">
           <Link to={`/product/${item.attributes.slug}`}>
             <img
-              src={
+              src={`http://localhost:1337` +
                  item?.attributes?.image?.data[0].attributes.url
               }
               alt="Image of Book"
